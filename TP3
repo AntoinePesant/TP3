@@ -19,8 +19,7 @@ namespace TP3
             {
                 ligne = fichier.ReadLine();
                 contenu += ligne + "\r\n";
-            }
-            while (ligne != null);
+            } while (ligne != null);
             fichier.Close();
             return contenu;
         }
@@ -30,10 +29,26 @@ namespace TP3
             fichier.Write(contenu);
             fichier.Close();
         }
+        public static char[] Alphabet()
+        {
+            char[] charAlphabet ={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9'};
+            return charAlphabet;
+        }
+        public static void afficherTableau(char[] charAlphabet)
+        {
+            
+            for (int i = 0; i < charAlphabet.Length; i++)
+            {
+                Console.WriteLine(charAlphabet[i]);
+            }
+        }
+        
+
         static void Main(string[] args)
         {
             String contenu = LireFichier();
             EcrireFichier(contenu);
+            afficherTableau(charAlphabet);
         }
     }
 }
