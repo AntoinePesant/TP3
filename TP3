@@ -19,7 +19,8 @@ namespace TP3
             {
                 ligne = fichier.ReadLine();
                 contenu += ligne + "\r\n";
-            } while (ligne != null);
+            }
+            while (ligne != null);
             fichier.Close();
             return contenu;
         }
