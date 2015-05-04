@@ -3,14 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace ConsoleApplication3
+using System.IO;
+namespace TP3
 {
     class Program
     {
+        public const String FichierEntree = "messageaenvoyer.txt";
+        public const String FichierSortie = "messagecode.txt";
+        public static String LireFichier()
+        {
+            TextReader fichier = new StreamReader(FichierEntree);
+            String contenu = "";
+            String ligne;
+            do
+            {
+                ligne = fichier.ReadLine();
+                contenu += ligne + "\r\n";
+            } while (ligne != null);
+            fichier.Close();
+            return contenu;
+        }
+        public static void EcrireFichier(String contenu)
+        {
+            TextWriter fichier = new StreamWriter(FichierSortie);
+            fichier.Write(contenu);
+            fichier.Close();
+        }
         static void Main(string[] args)
         {
-        
+            String contenu = LireFichier();
+            EcrireFichier(contenu);
         }
     }
 }
