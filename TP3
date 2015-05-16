@@ -42,7 +42,13 @@ namespace TP3
                 Console.WriteLine(charAlphabet[i]);
             }
         }
-        
+         public static int choix()
+        {
+            int choix;
+            
+            choix = Clavier.LireInt("Veuillez rentrer votre choix : ", "Erreur", 1, 2);
+            return choix;
+        }
 
         static void Main(string[] args)
         {
