@@ -1,0 +1,39 @@
+     int Nom = Console.ReadLine();
+                        // insérer code pour lire les caractères du nom qui sera assigné à shift
+                          public static String LireFichier()
+                        {
+                            TextReader fichier = new StreamReader(FichierEntree);
+                            String contenu = "";
+                            String ligne;
+                            do
+                            {
+                                ligne = fichier.ReadLine();
+                                contenu += ligne + "\r\n";
+                            }
+                            while (ligne != null);
+                            fichier.Close();
+                        }  
+                    
+                        
+                        Console.WriteLine("Le texte encrypté est le suivant:");
+                        Console.WriteLine(OBSHIFT.Cshift(contenu,shift));
+                        Console.Read();
+
+                    
+                   class Shift 
+{
+    public string Cshift(string str, int shift)
+    {
+        string UserOutput = null;
+        char[] A = null;
+        A = str.ToCharArray();
+        int temp;
+ 
+        for (int i = 0; i < str.Length;i++ ) 
+        {
+            temp = (int)(A[i] + shift);
+            UserOutput += (char)temp;
+        }
+        return UserOutput;
+    }
+}
