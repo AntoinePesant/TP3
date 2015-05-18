@@ -56,7 +56,8 @@ namespace TP3
                 {
                     case 1:
                        Console.WriteLine("Veuillez rentrer votre nom pour décaler le message : ");
-                        EcrireFichier(contenu);
+                       LireFichier();
+                       EcrireFichier(contenu);
 
                         break;
                     case 2:
