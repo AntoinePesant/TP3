@@ -73,14 +73,13 @@ namespace TP3
                             while (ligne != null);
                             fichier.Close();
                         }  
-                    public static void Main()
-                    {
+                    
                         
                         Console.WriteLine("Le texte encrypté est le suivant:");
                         Console.WriteLine(OBSHIFT.Cshift(contenu,shift));
                         Console.Read();
 
-                    }
+                    
                    class Shift 
 {
     public string Cshift(string str, int shift)
