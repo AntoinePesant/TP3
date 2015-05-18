@@ -32,13 +32,22 @@ namespace TP3
        public static int Choix()
        {
            int choix;
-
+           Console.WriteLine(""
+                             + "******************************************\n"
+                             + "*  Liste des options :                   *\n"
+                             + "*--------------------------------        *\n"
+                             + "*  0    Quitter le programme             *\n"
+                             + "*                                        *\n"
+                             + "*  1    Saisie du message                *\n"
+                             + "*  2    Décodage du message              *\n"
+                             + "******************************************\n");
            choix = Clavier.LireInt("Veuillez rentrer votre choix : ", "Erreur", 0, 2);
            return choix;
        }
 
         static void Main(string[] args)
-        {
+        { 
+            String contenu = LireFichier();
            int shift;
            int choix= Choix();
              while (choix != 0)
@@ -47,16 +56,16 @@ namespace TP3
                 {
                     case 1:
                        Console.WriteLine("Veuillez rentrer votre nom pour décaler le message : ");
-                        
+                        EcrireFichier(contenu);
 
                         break;
                     case 2:
-                        
+                        LireFichier();
                         break;
                         }
            
-            String contenu = LireFichier();
-            EcrireFichier(contenu);
+            
+            
            
         }
     }
