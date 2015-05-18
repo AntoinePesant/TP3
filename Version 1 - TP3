@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+namespace TP3
+{
+    class Program
+    {
+        public const String FichierEntree = "messageaenvoyer.txt";
+        public const String FichierSortie = "messagecode.txt";
+        
+        class Shift
+        {
+        public string Cshift(string str, int shift)
+        {
+            string UserOutput = null;
+            char[] A = null;
+            A = str.ToCharArray();
+            int temp;
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                temp = (int)(A[i] + shift);
+                UserOutput += (char)temp;
+            }
+            return UserOutput;
+        }
+        }
+        public static String LireFichier()
+        {
+            TextReader fichier = new StreamReader(FichierEntree);
+            String contenu = "";
+            String ligne;
+            do
+            {
+                ligne = fichier.ReadLine();
+                contenu += ligne + "\r\n";
+            } while (ligne != null);
+            fichier.Close();
+            return contenu;
+        }
+        public static void EcrireFichier(String contenu)
+        {
+            TextWriter fichier = new StreamWriter(FichierSortie);
+            fichier.Write(contenu);
+            fichier.Close();
+        }
+       public static int Choix()
+       {
+           int choix;
+           Console.WriteLine(""
+                             + "******************************************\n"
+                             + "*  Liste des options :                   *\n"
+                             + "*--------------------------------        *\n"
+                             + "*  0    Quitter le programme             *\n"
+                             + "*                                        *\n"
+                             + "*  1    Saisie du message                *\n"
+                             + "*  2    Décodage du message              *\n"
+                             + "******************************************\n");
+           choix = Clavier.LireInt("Veuillez rentrer votre choix : ", "Erreur", 0, 2);
+           return choix;
+       }
+
+        static void Main(string[] args)
+        { 
+            String contenu = LireFichier();
+           int shift;
+           Shift OBSHIFT = new Shift();
+           int choix= Choix();
+             while (choix != 0)
+            {
+                switch (choix)
+                {
+                    case 1:
+                       Console.WriteLine("Veuillez rentrer votre nom pour décaler le message : ");
+                       
+                        // insérer code pour lire les caractères du nom qui sera assigné à shift
+                        LireFichier();
+                       EcrireFichier(contenu);
+                        Console.WriteLine("Le texte encrypté est le suivant:");
+                        Console.WriteLine(OBSHIFT.Cshift(contenu,shift));
+                        Console.Read();
+                       
+                         
+                        break;
+                    case 2:
+                        LireFichier();
+                        break;
+                   }     
+        }
+    }
+}
+}
