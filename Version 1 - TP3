@@ -11,23 +11,28 @@ namespace TP3
         public const String FichierEntree = "messageaenvoyer.txt";
         public const String FichierSortie = "messagecode.txt";
         
-        class Shift
-        {
-        public string Cshift(string str, int shift)
-        {
-            string UserOutput = null;
-            char[] A = null;
-            A = str.ToCharArray();
-            int temp;
+       class Program
+{
+    static string Caesar(string value, int shift)
+    {
+	char[] buffer = value.ToCharArray();
+	for (int i = 0; i < buffer.Length; i++)
+	{
+	    char letter = buffer[i];
+	    letter = (char)(letter + shift);
+	    if (letter > 'z')
+	    {
+		letter = (char)(letter - 26);
+	    }
+	    else if (letter < 'a')
+	    {
+		letter = (char)(letter + 26);
+	    }
+	    buffer[i] = letter;
+	}
+	return new string(buffer);
+    }
 
-            for (int i = 0; i < str.Length; i++)
-            {
-                temp = (int)(A[i] + shift);
-                UserOutput += (char)temp;
-            }
-            return UserOutput;
-        }
-        }
         public static String LireFichier()
         {
             TextReader fichier = new StreamReader(FichierEntree);
@@ -81,13 +86,14 @@ namespace TP3
                         LireFichier();
                        EcrireFichier(contenu);
                         Console.WriteLine("Le texte encrypté est le suivant:");
-                        Console.WriteLine(OBSHIFT.Cshift(contenu,shift));
+                        string encrypté = Caesar (buffer, shift);
                         Console.Read();
                        
                          
                         break;
                     case 2:
                         LireFichier();
+                         string encrypté = Caesar (buffer, -shift);
                         break;
                    }     
         }
