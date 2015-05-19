@@ -75,10 +75,9 @@ namespace TP3
                 {
                     case 1:
                        Console.WriteLine("Veuillez rentrer votre nom pour décaler le message : ");
-                       om = Console.ReadLine();
-               shift = nom.Length;
+                       Nom = Console.ReadLine();
+               shift = Nom.Length;
                Console.WriteLine(shift);
-                        // insérer code pour lire les caractères du nom qui sera assigné à shift
                         LireFichier();
                        EcrireFichier(contenu);
                         Console.WriteLine("Le texte encrypté est le suivant:");
