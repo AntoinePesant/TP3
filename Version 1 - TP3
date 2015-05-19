@@ -11,8 +11,7 @@ namespace TP3
         public const String FichierEntree = "messageaenvoyer.txt";
         public const String FichierSortie = "messagecode.txt";
         
-       class Program
-{
+    
     static string Caesar(string value, int shift)
     {
 	char[] buffer = value.ToCharArray();
@@ -88,12 +87,13 @@ namespace TP3
                         string buffer = LireFichier();
                         string encrypté = Caesar (buffer, shift);
                         Console.Read();
-                       EcrireFichier(buffer);
+                       EcrireFichier(encrypté);
                          
                         break;
                     case 2:
+                        int shift;
                         LireFichier();
-                         string encrypté = Caesar (buffer, -shift);
+                         string décrypté = Caesar (buffer, -shift);
                         break;
                    }     
         }
