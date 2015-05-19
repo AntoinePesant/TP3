@@ -36,20 +36,20 @@ namespace TP3
         public static String LireFichier()
         {
             TextReader fichier = new StreamReader(FichierEntree);
-            String contenu = "";
+            String buffer = "";
             String ligne;
             do
             {
                 ligne = fichier.ReadLine();
-                contenu += ligne + "\r\n";
+                buffer += ligne + "\r\n";
             } while (ligne != null);
             fichier.Close();
-            return contenu;
+            return buffer;
         }
-        public static void EcrireFichier(String contenu)
+        public static void EcrireFichier(String buffer)
         {
             TextWriter fichier = new StreamWriter(FichierSortie);
-            fichier.Write(contenu);
+            fichier.Write(buffer);
             fichier.Close();
         }
        public static int Choix()
@@ -85,9 +85,10 @@ namespace TP3
                Console.WriteLine(shift);
                         
                         Console.WriteLine("Le texte encrypté est le suivant:");
+                        string buffer = LireFichier();
                         string encrypté = Caesar (buffer, shift);
                         Console.Read();
-                       
+                       EcrireFichier(buffer);
                          
                         break;
                     case 2:
