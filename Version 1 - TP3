@@ -8,29 +8,60 @@ namespace TP3
 {
     class Program
     {
-        public const String FichierEntree = "messageaenvoyer.txt";
-        public const String FichierSortie = "messagecode.txt";
-        
-    
-    static string Caesar(string value, int shift)
-    {
-	char[] buffer = value.ToCharArray();
-	for (int i = 0; i < buffer.Length; i++)
-	{
-	    char letter = buffer[i];
-	    letter = (char)(letter + shift);
-	    if (letter > 'z')
-	    {
-		letter = (char)(letter - 26);
-	    }
-	    else if (letter < 'a')
-	    {
-		letter = (char)(letter + 26);
-	    }
-	    buffer[i] = letter;
-	}
-	return new string(buffer);
-    }
+        public const String FichierEntree = "messageaenvoyer.txt"; //Fichier de départ avec texte déjà écrit dedans
+        public const String FichierSortie = "messagecode.txt"; // Fichier récepteur de texte encrypté
+
+        public static string Encryptage(string message, int shift)
+        {
+            string messagecoder = "";
+            char[] tab = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            // Tableau des characters (alphabet+chiffre)
+
+            for (int i = 0; i < message.Length; i++)
+            {
+                char lettre = message[i];
+                
+                char lettrecoder = lettre;
+                for (int j = 0; j < tab.Length; j++)
+                {
+                    if (lettre == tab[j])
+                    {
+                        
+                        lettrecoder = tab[(j + shift) % tab.Length];
+                    }
+                }
+                messagecoder += lettrecoder;
+
+            } // Méthode de cryptage
+
+            return messagecoder;
+        }
+        public static string Decryptage(string message, int shift)
+        {
+            string messagecoder = "";
+            char[] tab = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            // Tableau des characters (alphabet+chiffre)
+            for (int i = 0; i < message.Length; i++)
+            {
+                char lettre = message[i];
+                char lettrecoder = lettre;
+                for (int j = 0; j < tab.Length; j++)
+                {
+                    if (lettre == tab[j])
+                    {
+                        int index = j - shift;
+                        if (index < 0)
+                        {
+                            index += tab.Length;
+                        }
+                        lettrecoder = tab[index];
+                    }
+                }
+                messagecoder += lettrecoder;
+
+            }
+            return messagecoder;
+        }// Méthode de décryptage
 
         public static String LireFichier()
         {
@@ -44,59 +75,78 @@ namespace TP3
             } while (ligne != null);
             fichier.Close();
             return buffer;
-        }
+        }// Méthode pour la lecture du fichier entrée
+        public static String LireFichier1()
+        {
+            TextReader fichier = new StreamReader(FichierSortie);
+            String buffer = "";
+            String ligne;
+            do
+            {
+                ligne = fichier.ReadLine();
+                buffer += ligne + "\r\n";
+            } while (ligne != null);
+            fichier.Close();
+            return buffer;
+        }// Méthode pour la lecture du fichier sortie
         public static void EcrireFichier(String buffer)
         {
             TextWriter fichier = new StreamWriter(FichierSortie);
             fichier.Write(buffer);
             fichier.Close();
-        }
-       public static int Choix()
-       {
-           int choix;
-           Console.WriteLine(""
-                             + "******************************************\n"
-                             + "*  Liste des options :                   *\n"
-                             + "*--------------------------------        *\n"
-                             + "*  0    Quitter le programme             *\n"
-                             + "*                                        *\n"
-                             + "*  1    Saisie du message                *\n"
-                             + "*  2    Décodage du message              *\n"
-                             + "******************************************\n");
-           choix = Clavier.LireInt("Veuillez rentrer votre choix : ", "Erreur", 0, 2);
-           return choix;
-       }
+        }// Méthode pour écricre dans le fichier
+
+        public static int Choix()
+        {
+            int choix;
+            Console.WriteLine(""
+                              + "******************************************\n"
+                              + "*  Liste des options :                   *\n"
+                              + "*--------------------------------        *\n"
+                              + "*  0    Quitter le programme             *\n"
+                              + "*                                        *\n"
+                              + "*  1    Saisie du message                *\n"
+                              + "*  2    Décodage du message              *\n"
+                              + "******************************************\n");
+            choix = Clavier.LireInt("Veuillez rentrer votre choix : ", "Erreur", 0, 2);
+            return choix;
+        }// Menu des options + la lecture du choix
 
         static void Main(string[] args)
-        { 
+        {
             String contenu = LireFichier();
-           int shift;
-           string Nom;
-           int choix= Choix();
-             while (choix != 0)
+            int shift=0;
+            string Nom=null;
+            int choix = Choix(); 
+            //déclaration des variables dans le main
+            while (choix != 0) //boucle pour afficher le menu
             {
+                
                 switch (choix)
                 {
                     case 1:
-                       Console.WriteLine("Veuillez rentrer votre nom pour décaler le message : ");
-                       Nom = Console.ReadLine();
-               shift = Nom.Length;
-               Console.WriteLine(shift);
-                        
-                        Console.WriteLine("Le texte encrypté est le suivant:");
-                        string buffer = LireFichier();
-                        string encrypté = Caesar (buffer, shift);
-                        Console.Read();
-                       EcrireFichier(encrypté);
-                         
+                        Console.WriteLine("Veuillez rentrer votre nom pour décaler le message : ");
+                     Nom = Console.ReadLine();
+                        shift = Nom.Length;
+                        Console.WriteLine(shift);
+                        Console.WriteLine("Le texte est encrypté.");
+                        string message = LireFichier();
+                        string encrypte = Encryptage(Nom+" "+message, shift);
+                        EcrireFichier(encrypte);
                         break;
+                        // Encryptage du message 
                     case 2:
-                        int shift;
-                        LireFichier();
-                         string décrypté = Caesar (buffer, -shift);
+
+                        if (Nom != null) { 
+                     string encrypte1 = LireFichier1();
+                         string decrypte = Decryptage (encrypte1, shift);
+                         EcrireFichier(decrypte);
+                        }
                         break;
-                   }     
+                    // Décryptage du message 
+                }
+               choix = Choix();
+            } 
         }
     }
-}
 }
